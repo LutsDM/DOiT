@@ -44,7 +44,10 @@ export default function PostsPage() {
   const loadingArray = Array.from({ length: 6 }) as (Post | undefined)[];
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box  sx={{
+    px: { xs: 6, md: 15 },
+    py: 0,
+  }}>
       <TextField
         placeholder="Пошук"
         value={search}
