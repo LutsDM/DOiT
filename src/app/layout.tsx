@@ -21,7 +21,7 @@ import AddIcon from '@mui/icons-material/Add';
 import MenuIcon from "@mui/icons-material/Menu";
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+
 
 const drawerWidth = 240;
 
@@ -106,7 +106,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               flexGrow: 1,
               p: 3,
               width: { md: `calc(100% - ${drawerWidth}px)` },
-             
+              ml: { md: `${drawerWidth}px` },
             }}
           >
             <Toolbar />
