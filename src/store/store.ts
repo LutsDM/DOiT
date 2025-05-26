@@ -1,3 +1,4 @@
+import postSlice from "@/features/posts/postSlice";
 import { LineAxisOutlined } from "@mui/icons-material";
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 // import productSlice from "../features/products/productSlice";
@@ -8,8 +9,7 @@ import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
-    // подключаем функции reducer для обработки данных из файлов slice
-    // products: productSlice.reducer
+   posts: postSlice.reducer
   },
 });
 

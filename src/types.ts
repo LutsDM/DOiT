@@ -11,4 +11,8 @@ export type Comment = {
   body: string;
 };
 
-interface IPostState {}
+export interface IPostState {
+  posts: Post[],
+  isLoading: boolean,
+  error: null | string
+}

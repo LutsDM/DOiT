@@ -1,9 +1,11 @@
+import { IPostState } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
+import { loadPosts } from './postsActions';
 
-const initialState: TypeForState = {
+const initialState: IPostState = {
   posts: [],
   isLoading: false,
-  error: null,
+  error: "",
 };
 
 export const postSlice = createSlice({
@@ -12,16 +14,16 @@ export const postSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(thunkName.pending, (state) => {
+      .addCase(loadPosts.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(thunkName.fulfilled, (state, action) => {
+      .addCase(loadPosts.fulfilled, (state, action) => {
         state.isLoading = false
-        state.products = action.payload;
+        state.posts = action.payload;
       })
-      .addCase(thunkName.rejected, (state, action) => {
+      .addCase(loadPosts.rejected, (state, action) => {
         state.isLoading = false
-        state.values = []
+        state.posts = []
         state.error = action.payload as string
       })
   },
