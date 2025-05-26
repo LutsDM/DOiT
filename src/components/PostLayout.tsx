@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
-import PostActions from "@/app/components/PostActions";
+import PostActions from "@/components/PostActions";
 import {
   Box,
   Card,

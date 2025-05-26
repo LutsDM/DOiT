@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { Post } from "@/app/types";
-import PostLayout from "@/app/components/PostLayout";
+import { Post } from "@/types";
+import PostLayout from "@/components/PostLayout";
 
 async function getPost(id: string): Promise<Post | null> {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);

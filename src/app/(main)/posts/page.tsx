@@ -1,5 +1,5 @@
 "use client";
-import { Post } from "@/app/types";
+import { Post } from "@/types";
 import { useEffect, useState } from "react";
 import {
   Box,
@@ -44,10 +44,12 @@ export default function PostsPage() {
   const loadingArray = Array.from({ length: 6 }) as (Post | undefined)[];
 
   return (
-    <Box  sx={{
-    px: { xs: 6, md: 15 },
-    py: 0,
-  }}>
+    <Box
+      sx={{
+        px: { xs: 6, md: 15 },
+        py: 0,
+      }}
+    >
       <TextField
         placeholder="Пошук"
         value={search}
