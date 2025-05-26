@@ -21,21 +21,9 @@ import {
   ListItemText,
   Badge
 } from '@mui/material';
+import { Comment, Post } from "@/types";
 
-type Comment = {
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-};
-
-type Props = {
-  postId: number;
-  postTitle: string;
-  postBody: string;
-};
-
-export default function PostLayout({ postId, postTitle, postBody }: Props) {
+export default function PostLayout({ id, title, body }: Post) {
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loadingComments, setLoadingComments] = useState(false);
@@ -45,22 +33,22 @@ export default function PostLayout({ postId, postTitle, postBody }: Props) {
   useEffect(() => {
     if (commentsOpen) {
       setLoadingComments(true);
-      fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+      fetch(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
         .then((res) => res.json())
         .then((data) => {
           setComments(data);
           setLoadingComments(false);
         });
     }
-  }, [commentsOpen, postId]);
+  }, [commentsOpen, id]);
 
   return (
     <Box sx={{ mt: 5, px: 20 }}>
       <Card elevation={3}>
         <CardHeader
-          avatar={<Avatar>{postTitle[0].toUpperCase()}</Avatar>}
-          title={postTitle}
-          subheader={`Post ID: ${postId}`}
+          avatar={<Avatar>{title[0].toUpperCase()}</Avatar>}
+          title={title}
+          subheader={`Post ID: ${id}`}
           action={
             <Button
               startIcon={
@@ -77,10 +65,10 @@ export default function PostLayout({ postId, postTitle, postBody }: Props) {
           }
         />
         <CardContent>
-          <Typography variant="body1">{postBody}</Typography>
+          <Typography variant="body1">{body}</Typography>
         </CardContent>
         <CardActions>
-          <PostActions postId={postId} />
+          <PostActions postId={id} />
         </CardActions>
       </Card>
 

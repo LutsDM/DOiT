@@ -24,6 +24,6 @@ export default async function PostPage({ params }: Props) {
   }
 
   return (
-    <PostLayout postId={post.id} postTitle={post.title} postBody={post.body} />
+    <PostLayout id={post.id} title={post.title} body={post.body} />
   );
 }
