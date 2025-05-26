@@ -23,18 +23,17 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { loadPosts } from "@/features/posts/postsActions";
 
 export default function PostsPage() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { posts, isLoading: loading } = useAppSelector((state) => state.posts)
   const [search, setSearch] = useState("");
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => res.json())
-      .then((data: Post[]) => setPosts(data))
-      .catch((err) => console.error("Помилка завантаження постів:", err))
-      .finally(() => setLoading(false));
+   dispatch(loadPosts())
   }, []);
 
   const filteredPosts: Post[] = posts.filter((post) =>
