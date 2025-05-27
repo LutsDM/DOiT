@@ -17,3 +17,8 @@ export interface IPostState {
   error: null | string
   currentPost: Post | null;
 }
+
+export interface INewPost {
+  title: string,
+  body: string;
+}

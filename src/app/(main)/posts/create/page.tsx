@@ -1,10 +1,6 @@
 "use client";
-
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { addPost } from "@/features/posts/postSlice";
-
 import {
   Box,
   Stepper,
@@ -15,12 +11,19 @@ import {
   Typography,
   Snackbar,
   Alert,
+  Container,
 } from "@mui/material";
+import { createPost } from "@/features/posts/postsActions";
+import { INewPost } from "@/types";
+import { useAppDispatch } from "@/store/hooks";
+import SaveIcon from "@mui/icons-material/Save";
+
 
 const steps = ["Заголовок", "Тіло", "Попередній перегляд"];
 
 export default function CreatePostPage() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const router = useRouter();
 
   const [activeStep, setActiveStep] = useState(0);
@@ -32,12 +35,11 @@ export default function CreatePostPage() {
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      const newPost = {
-        id: Date.now(),
+      const newPost: INewPost = {
         title,
         body,
       };
-      dispatch(addPost(newPost));
+      dispatch(createPost(newPost));
       setOpenSnackbar(true);
       setTimeout(() => {
         router.push("/posts");
@@ -50,7 +52,7 @@ export default function CreatePostPage() {
   const handleBack = () => setActiveStep((prev) => prev - 1);
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Container sx={{ boxShadow: 5, p: 5 }}  maxWidth="sm">
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -93,17 +95,24 @@ export default function CreatePostPage() {
       )}
 
       <Box sx={{ mt: 4, display: "flex", justifyContent: "space-between" }}>
-        <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined">
+        <Button
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          variant="outlined"
+        >
           Назад
         </Button>
         <Button
           onClick={handleNext}
           variant="contained"
           disabled={
-            (activeStep === 0 && !title.trim()) || (activeStep === 1 && !body.trim())
+            (activeStep === 0 && !title.trim()) ||
+            (activeStep === 1 && !body.trim())
           }
-        >
-          {activeStep === steps.length - 1 ? "Створити" : "Далі"}
+          >
+          {activeStep === steps.length - 1 ? "Зберегти" : "Далі"}
+          <SaveIcon sx={{ ml: 1 }}/>
+          
         </Button>
       </Box>
 
@@ -120,6 +129,6 @@ export default function CreatePostPage() {
           Пост успішно створено!
         </Alert>
       </Snackbar>
-    </Box>
+    </Container>
   );
 }

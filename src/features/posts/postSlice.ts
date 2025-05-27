@@ -1,6 +1,6 @@
-import { IPostState, Post } from "@/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getPostById, loadPosts } from "./postsActions";
+import { IPostState } from "@/types";
+import { createSlice } from "@reduxjs/toolkit";
+import { createPost, getPostById, loadPosts } from "./postsActions";
 
 const initialState: IPostState = {
   posts: [],
@@ -12,11 +12,7 @@ const initialState: IPostState = {
 export const postSlice = createSlice({
   name: "postsSlice",
   initialState,
-  reducers: {
-       addPost(state, action: PayloadAction<Post>) {
-      state.posts.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(loadPosts.pending, (state) => {
@@ -39,14 +35,25 @@ export const postSlice = createSlice({
         state.isLoading = false;
         state.currentPost = action.payload;
       })
-       .addCase(getPostById.rejected, (state, action) => {
+      .addCase(getPostById.rejected, (state, action) => {
         state.isLoading = false;
         state.currentPost = null;
         state.error = action.payload as string;
       })
+
+      .addCase(createPost.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(createPost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.posts.push(action.payload);
+      })
+      .addCase(createPost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 
-
 export default postSlice;
-export const { addPost } = postSlice.actions;

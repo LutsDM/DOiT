@@ -28,7 +28,7 @@ export default function Template({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const params = useParams();
-  const id = params?.id
+  const id = params?.id;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -107,8 +107,6 @@ export default function Template({ children }: { children: ReactNode }) {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
         }}
       >
         <Toolbar />
