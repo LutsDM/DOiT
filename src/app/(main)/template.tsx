@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ReactNode, useState } from "react";
 import {
@@ -20,11 +20,15 @@ import AddIcon from "@mui/icons-material/Add";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
 
 const drawerWidth = 240;
 
 export default function Template({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const params = useParams();
+  const id = params?.id
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -33,7 +37,7 @@ export default function Template({ children }: { children: ReactNode }) {
   const drawerItems = [
     { label: "Головна", href: "/", icon: <HomeIcon /> },
     { label: "Усі пости", href: "/posts", icon: <ListIcon /> },
-    { label: "Створити пост", href: "/create", icon: <AddIcon /> },
+    { label: "Створити пост", href: "/posts/create", icon: <AddIcon /> },
   ];
 
   const drawer = (
@@ -74,9 +78,11 @@ export default function Template({ children }: { children: ReactNode }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            DOiT MVP
-          </Typography>
+          {pathname && pathname.includes("posts")
+            ? pathname.includes(`posts/${id}`)
+              ? `Пост # ${id}`
+              : "Усі пости"
+            : "DOiT MVP"}
         </Toolbar>
       </AppBar>
 

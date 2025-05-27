@@ -74,7 +74,7 @@ export default function PostsPage() {
       />
 
       <Grid container spacing={3}>
-        {(loading ? loadingArray : filteredPosts.slice(0, 6)).map(
+        {(loading ? loadingArray : filteredPosts).map(
           (post, index) => (
             <Grid item xs={12} sm={6} md={4} key={loading ? index : post!.id}>
               <Card

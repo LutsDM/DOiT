@@ -1,5 +1,5 @@
-import { IPostState } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { IPostState, Post } from "@/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getPostById, loadPosts } from "./postsActions";
 
 const initialState: IPostState = {
@@ -13,8 +13,8 @@ export const postSlice = createSlice({
   name: "postsSlice",
   initialState,
   reducers: {
-    clearCurrentPost(state) {
-      state.currentPost = null;
+       addPost(state, action: PayloadAction<Post>) {
+      state.posts.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -49,4 +49,4 @@ export const postSlice = createSlice({
 
 
 export default postSlice;
-export const {} = postSlice.actions;
+export const { addPost } = postSlice.actions;

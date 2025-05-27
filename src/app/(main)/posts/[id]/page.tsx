@@ -4,6 +4,7 @@ import { useParams, notFound } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getPostById } from "@/features/posts/postsActions";
 import PostLayout from "@/components/PostLayout";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function PostPage() {
   const params = useParams();
@@ -25,7 +26,7 @@ export default function PostPage() {
     dispatch(getPostById(numericId));
     }, [dispatch, numericId]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <CircularProgress size={60} thickness={5} color="primary" />;
   if (error) return <p style={{ color: "red" }}>Помилка: {error}</p>;
   
 if (!currentPost && !isLoading) {
