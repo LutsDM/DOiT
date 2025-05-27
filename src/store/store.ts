@@ -1,11 +1,12 @@
 import postSlice from "@/features/posts/postSlice";
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-
+import logger from "redux-logger";
 
 export const store = configureStore({
   reducer: {
-   posts: postSlice.reducer
+    posts: postSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export type AppDispatch = typeof store.dispatch;

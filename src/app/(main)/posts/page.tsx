@@ -10,7 +10,6 @@ import {
   Avatar,
   Typography,
   IconButton,
-  Button,
   TextField,
   InputAdornment,
   Skeleton,
@@ -27,13 +26,17 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loadPosts } from "@/features/posts/postsActions";
 
 export default function PostsPage() {
-  const { posts, isLoading: loading } = useAppSelector((state) => state.posts)
+  const {
+    posts,
+    isLoading: loading,
+    error,
+  } = useAppSelector((state) => state.posts);
   const [search, setSearch] = useState("");
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-   dispatch(loadPosts())
+    dispatch(loadPosts());
   }, []);
 
   const filteredPosts: Post[] = posts.filter((post) =>
@@ -43,6 +46,11 @@ export default function PostsPage() {
   const loadingArray = Array.from({ length: 6 }) as (Post | undefined)[];
 
   return (
+      <>{error && (
+      <Typography color="error" variant="body1">
+        Помилка: {error}
+      </Typography>
+    )}
     <Box
       sx={{
         px: { xs: 6, md: 15 },
@@ -131,5 +139,6 @@ export default function PostsPage() {
         />
       </SpeedDial>
     </Box>
+    </>
   );
 }

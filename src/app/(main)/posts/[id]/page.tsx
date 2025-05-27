@@ -1,29 +1,44 @@
-import { notFound } from "next/navigation";
-import { Post } from "@/types";
+"use client";
+import { useEffect } from "react";
+import { useParams, notFound } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { getPostById } from "@/features/posts/postsActions";
 import PostLayout from "@/components/PostLayout";
 
-async function getPost(id: string): Promise<Post | null> {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+export default function PostPage() {
+  const params = useParams();
+  const id = params?.id; 
 
-  if (!res.ok) {
-    return null;
-  }
+  const numericId = Number(id);
 
-  return res.json();
+  const dispatch = useAppDispatch();
+  const { currentPost, isLoading, error } = useAppSelector(
+    (state) => state.posts
+  );
+
+  useEffect(() => {
+    if (!numericId || isNaN(numericId)) {
+      console.warn("Invalid or missing ID in params");
+      return;
+    }
+
+    dispatch(getPostById(numericId));
+    }, [dispatch, numericId]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p style={{ color: "red" }}>Помилка: {error}</p>;
+  
+if (!currentPost && !isLoading) {
+  return <p>Пост не знайдено</p>;
 }
 
-type Props = {
-  params: { id: string };
-};
-
-export default async function PostPage({ params }: Props) {
-  const post = await getPost(params.id);
-
-  if (!post) {
-    notFound();
-  }
+if (!currentPost) return null;
 
   return (
-    <PostLayout id={post.id} title={post.title} body={post.body} />
+    <PostLayout
+      id={currentPost.id}
+      title={currentPost.title}
+      body={currentPost.body}
+    />
   );
 }

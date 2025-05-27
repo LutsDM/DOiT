@@ -15,4 +15,5 @@ export interface IPostState {
   posts: Post[],
   isLoading: boolean,
   error: null | string
+  currentPost: Post | null;
 }
