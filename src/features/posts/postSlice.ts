@@ -1,6 +1,12 @@
 import { IPostState } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { createPost, getPostById, loadPosts } from "./postsActions";
+import {
+  createPost,
+  deletePost,
+  getPostById,
+  loadPosts,
+  updatePost,
+} from "./postsActions";
 
 const initialState: IPostState = {
   posts: [],
@@ -40,7 +46,6 @@ export const postSlice = createSlice({
         state.currentPost = null;
         state.error = action.payload as string;
       })
-
       .addCase(createPost.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -50,6 +55,35 @@ export const postSlice = createSlice({
         state.posts.push(action.payload);
       })
       .addCase(createPost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updatePost.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const index = state.posts.findIndex(
+          (post) => post.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.posts[index] = action.payload;
+        }
+      })
+      .addCase(updatePost.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(deletePost.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.posts = state.posts.filter((post) => post.id !== action.payload);
+      })
+      .addCase(deletePost.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

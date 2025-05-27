@@ -22,3 +22,9 @@ export interface INewPost {
   title: string,
   body: string;
 }
+
+export interface IUpdatePost {
+  id: number;
+  title?: string;
+  body?: string;
+}

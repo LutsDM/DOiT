@@ -1,4 +1,4 @@
-import { INewPost } from '@/types';
+import { INewPost, IUpdatePost } from '@/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -31,6 +31,31 @@ export const createPost = createAsyncThunk(
   async (post: INewPost, thunkAPI) => {
     try {
       const response = await axios.post(`https://jsonplaceholder.typicode.com/posts`, post);
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updatePost = createAsyncThunk(
+  'posts/updatePost',
+  async (post: IUpdatePost, thunkAPI) => {
+    try {
+      const { id, ...data } = post;
+      const response = await axios.patch(`https://jsonplaceholder.typicode.com/posts/${id}`, data);
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deletePost = createAsyncThunk(
+  'posts/deletePost',
+  async (id: number, thunkAPI) => {
+    try {
+      const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
