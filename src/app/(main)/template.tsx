@@ -21,6 +21,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
+import { useThemeContext } from "@/context/ThemeContext";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
 const drawerWidth = 240;
 
@@ -29,6 +32,7 @@ export default function Template({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const params = useParams();
   const id = params?.id;
+  const { toggleColorMode, mode } = useThemeContext();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -78,11 +82,20 @@ export default function Template({ children }: { children: ReactNode }) {
           >
             <MenuIcon />
           </IconButton>
-          {pathname && pathname.includes("posts")
-            ? pathname.includes(`posts/${id}`)
-              ? `Пост # ${id}`
-              : "Усі пости"
-            : "DOiT MVP"}
+          {(() => {
+            if (!pathname?.includes("/posts")) return "DOiT MVP";
+            if (pathname.includes("/posts/create")) return "Створити пост";
+            if (pathname.match(/^\/posts\/\d+$/))
+              return `Пост #${pathname.split("/").pop()}`;
+            return "Усі пости";
+          })()}
+          <Box
+            sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
+          >
+            <IconButton onClick={toggleColorMode} color="inherit">
+              {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
 

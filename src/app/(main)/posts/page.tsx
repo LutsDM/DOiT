@@ -24,6 +24,7 @@ import Link from "next/link";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { loadPosts } from "@/features/posts/postsActions";
+import { useRouter } from "next/navigation";
 
 export default function PostsPage() {
   const {
@@ -34,7 +35,8 @@ export default function PostsPage() {
   const [search, setSearch] = useState("");
 
   const dispatch = useAppDispatch();
-
+  
+  const router = useRouter();
   useEffect(() => {
     dispatch(loadPosts());
   }, []);
@@ -46,36 +48,36 @@ export default function PostsPage() {
   const loadingArray = Array.from({ length: 6 }) as (Post | undefined)[];
 
   return (
-      <>{error && (
-      <Typography color="error" variant="body1">
-        Помилка: {error}
-      </Typography>
-    )}
-    <Box
-      sx={{
-        px: { xs: 6, md: 15 },
-        py: 0,
-      }}
-    >
-      <TextField
-        placeholder="Пошук"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        fullWidth
-        margin="normal"
-        variant="outlined"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
+    <>
+      {error && (
+        <Typography color="error" variant="body1">
+          Помилка: {error}
+        </Typography>
+      )}
+      <Box
+        sx={{
+          px: { xs: 6, md: 15 },
+          py: 0,
         }}
-      />
+      >
+        <TextField
+          placeholder="Пошук"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
 
-      <Grid container spacing={3}>
-        {(loading ? loadingArray : filteredPosts).map(
-          (post, index) => (
+        <Grid container spacing={3}>
+          {(loading ? loadingArray : filteredPosts).map((post, index) => (
             <Grid item xs={12} sm={6} md={4} key={loading ? index : post!.id}>
               <Card
                 sx={{
@@ -123,22 +125,21 @@ export default function PostsPage() {
                 )}
               </Card>
             </Grid>
-          )
-        )}
-      </Grid>
+          ))}
+        </Grid>
 
-      <SpeedDial
-        ariaLabel="Create new post"
-        sx={{ position: "fixed", bottom: 16, right: 16 }}
-        icon={<AddIcon />}
-      >
-        <SpeedDialAction
+        <SpeedDial
+          ariaLabel="Create new post"
+          sx={{ position: "fixed", bottom: 16, right: 16 }}
           icon={<AddIcon />}
-          tooltipTitle="Створити пост"
-          onClick={() => alert("TODO: redirect to create post")}
-        />
-      </SpeedDial>
-    </Box>
+        >
+          <SpeedDialAction
+            icon={<AddIcon />}
+            tooltipTitle="Створити пост"
+            onClick={() => router.push("/posts/create")}
+          />
+        </SpeedDial>
+      </Box>
     </>
   );
 }

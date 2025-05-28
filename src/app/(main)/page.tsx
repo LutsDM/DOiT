@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Box, Typography, Button, Container } from "@mui/material";
 import ListIcon from "@mui/icons-material/List";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useTheme } from "@mui/material/styles";
 
 export default function Hero() {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -13,8 +15,11 @@ export default function Hero() {
         maxWidth: "800px",
         mx: "auto",
         display: "flex",
-        background: "linear-gradient(to right, #E2F2FC, #F2E5F5)",
-        color: "#4C4F53",
+        background:
+          theme.palette.mode === "dark"
+            ? "linear-gradient(to right, #333, #49148A)"
+            : "linear-gradient(to right, #E2F2FC, #F2E5F5)",
+        color: theme.palette.text.primary,
         py: 8,
         justifyContent: "center",
         alignItems: "center",
