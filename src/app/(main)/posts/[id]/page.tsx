@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams, notFound } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getPostById } from "@/features/posts/postsActions";
-import PostLayout from "@/components/PostLayout";
+import PostLayout from "@/app/(main)/components/PostLayout";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function PostPage() {

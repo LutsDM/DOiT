@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -8,35 +8,77 @@ import {
   Drawer,
   IconButton,
   List,
-  ListItem,
   ListItemButton,
   ListItemText,
   Toolbar,
   Typography,
+  Badge,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  CircularProgress,
+  ListItemIcon,
+  ListItem as MuiListItem,
+  Tooltip,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ListIcon from "@mui/icons-material/List";
 import AddIcon from "@mui/icons-material/Add";
 import MenuIcon from "@mui/icons-material/Menu";
-import ListItemIcon from "@mui/material/ListItemIcon";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import CommentIcon from "@mui/icons-material/Comment";
+
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useThemeContext } from "@/context/ThemeContext";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { Comment } from "@/types";
 
 const drawerWidth = 240;
+
+function getAppBarTitle(pathname: string): string {
+  if (!pathname?.includes("/posts")) return "DOiT MVP";
+  if (pathname.includes("/posts/create")) return "Створити пост";
+  if (pathname.match(/^\/posts\/\d+$/)) return `Пост #${pathname.split("/").pop()}`;
+  return "Усі пости";
+}
 
 export default function Template({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const params = useParams();
-  const id = params?.id;
+  const postId = params?.id;
+
   const { toggleColorMode, mode } = useThemeContext();
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const [commentsOpen, setCommentsOpen] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [commentsCount, setCommentsCount] = useState<number | null>(null);
+
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+
+  useEffect(() => {
+    if (postId && pathname.match(/^\/posts\/\d+$/)) {
+      setLoadingComments(true);
+      fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setComments(data);
+          setCommentsCount(data.length);
+          setLoadingComments(false);
+        })
+        .catch(() => {
+          setComments([]);
+          setCommentsCount(null);
+          setLoadingComments(false);
+        });
+    } else {
+      setComments([]);
+      setCommentsCount(null);
+      setCommentsOpen(false); // Закрыть, если не на посте
+    }
+  }, [postId, pathname]);
 
   const drawerItems = [
     { label: "Головна", href: "/", icon: <HomeIcon /> },
@@ -48,7 +90,7 @@ export default function Template({ children }: { children: ReactNode }) {
     <div>
       <List>
         {drawerItems.map(({ label, href, icon }) => (
-          <ListItem key={label} disablePadding>
+          <MuiListItem key={label} disablePadding>
             <ListItemButton
               component={Link}
               href={href}
@@ -57,7 +99,7 @@ export default function Template({ children }: { children: ReactNode }) {
               <ListItemIcon>{icon}</ListItemIcon>
               <ListItemText primary={label} />
             </ListItemButton>
-          </ListItem>
+          </MuiListItem>
         ))}
       </List>
     </div>
@@ -82,20 +124,29 @@ export default function Template({ children }: { children: ReactNode }) {
           >
             <MenuIcon />
           </IconButton>
-          {(() => {
-            if (!pathname?.includes("/posts")) return "DOiT MVP";
-            if (pathname.includes("/posts/create")) return "Створити пост";
-            if (pathname.match(/^\/posts\/\d+$/))
-              return `Пост #${pathname.split("/").pop()}`;
-            return "Усі пости";
-          })()}
-          <Box
-            sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
-          >
-            <IconButton onClick={toggleColorMode} color="inherit">
-              {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Box>
+          <Typography variant="h6" noWrap component="div">
+            {getAppBarTitle(pathname)}
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          {pathname.match(/^\/posts\/\d+$/) && (
+            <Tooltip title="Коментарі">
+              <IconButton
+                color="inherit"
+                onClick={() => setCommentsOpen(true)}
+                disabled={loadingComments}
+              >
+                <Badge
+                  badgeContent={loadingComments ? "…" : commentsCount}
+                  color="secondary"
+                >
+                  <CommentIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+          )}
+          <IconButton onClick={toggleColorMode} color="inherit">
+            {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
         </Toolbar>
       </AppBar>
 
@@ -125,6 +176,46 @@ export default function Template({ children }: { children: ReactNode }) {
         <Toolbar />
         {children}
       </Box>
+
+      {/* Диалог комментариев */}
+      <Dialog
+        open={commentsOpen}
+        onClose={() => setCommentsOpen(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>Коментарі</DialogTitle>
+        <DialogContent dividers>
+          {loadingComments ? (
+            <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <List>
+              {comments.map(({ id, name, email, body }) => (
+                <MuiListItem key={id} alignItems="flex-start">
+                  <ListItemText
+                    primary={name}
+                    secondary={
+                      <>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {email}
+                        </Typography>
+                        {" — "}
+                        {body}
+                      </>
+                    }
+                  />
+                </MuiListItem>
+              ))}
+            </List>
+          )}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }
