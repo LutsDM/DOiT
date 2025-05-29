@@ -31,12 +31,12 @@ Next.js App Router for optimized navigation
 
 ## 🚀 Quick Start
 
-1. Clone the repository:
-```bash
+Clone the repository:
+
 git clone https://github.com/your-username/doit-posts-app.git
 cd doit-posts-app
 
-📁 Project Structure
+## 📁 Project Structure
 doit-posts-app/
 ├── app/
 │ ├── posts/ # Post management routes
@@ -75,27 +75,27 @@ doit-posts-app/
 ├── src/ # Source directory
 
 
-🔮 Future Improvements
+## 🔮 Future Improvements
 
-API Optimization
+✅ API Optimization
 
 Transition to RTK Query for:
 Automatic caching
 Optimized requests
 Less boilerplate code
 
-UX Improvements
+✅ UX Improvements
 
 Add spinners for all asynchronous actions
 Form validation
 Enhance error handling (e.g., when saving/deleting posts)
 
-Unit Testing
+✅ Unit Testing
 
 Use Jest + React Testing Library
 Test Redux slices and UI components (e.g., PostCard, Header)
 
-Responsiveness / Mobile Support
+✅ Responsiveness / Mobile Support
 
 Ensure compatibility with different screen sizes
 Optimize UI for mobile devices
