@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogContent,
 } from "@mui/material";
-import { createPost } from "@/features/posts/postsActions";
+import { createPost } from "@/features/postsState/postsActions";
 import { INewPost } from "@/types";
 import { useAppDispatch } from "@/store/hooks";
 import SaveIcon from "@mui/icons-material/Save";

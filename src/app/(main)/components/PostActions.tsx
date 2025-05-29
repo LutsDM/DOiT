@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
-import { deletePost } from "@/features/posts/postsActions";
+import { deletePost } from "@/features/postsState/postsActions";
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 

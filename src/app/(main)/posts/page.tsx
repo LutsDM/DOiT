@@ -23,7 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { loadPosts } from "@/features/posts/postsActions";
+import { loadPosts } from "@/features/postsState/postsActions";
 import { useRouter } from "next/navigation";
 
 export default function PostsPage() {
@@ -35,7 +35,7 @@ export default function PostsPage() {
   const [search, setSearch] = useState("");
 
   const dispatch = useAppDispatch();
-  
+
   const router = useRouter();
   useEffect(() => {
     dispatch(loadPosts());

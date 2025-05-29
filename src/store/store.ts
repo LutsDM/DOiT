@@ -1,4 +1,4 @@
-import postSlice from "@/features/posts/postSlice";
+import postSlice from "@/features/postsState/postSlice";
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
