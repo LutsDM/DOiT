@@ -52,7 +52,7 @@ export default function PostActions({ postId }: { postId: number }) {
           border: "1px solid blue",
         }}
       >
-        Дщ списку
+        Дo списку
       </Button>
     </Box>
   );
