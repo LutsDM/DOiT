@@ -1,30 +1,33 @@
 # 🚀 DOiT-POSTS-APP (Next.js 14 + Redux Toolkit)
-This project is a test assignment involving the development of a blog platform with CRUD operations,
-built with Next.js 14 (App Router), Redux Toolkit, Material UI, and TypeScript.
-Features include dark/light mode, search functionality, post comments, and a sleek U
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.0.0-black?logo=next.js)](https://nextjs.org/)
-[![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC?logo=redux)](https://redux-toolkit.js.org/)
-[![MUI](https://img.shields.io/badge/MUI-5.14.0-007FFF?logo=mui)](https://mui.com/)
+This project is a test assignment involving the development of a blog platform with CRUD operations, built with Next.js 14 (App Router), Redux Toolkit, Material UI, and TypeScript. Features include dark/light mode, search functionality, post comments, and a sleek UI.
+
+![Tech Stack](https://img.shields.io/badge/Next.js-14-blue)
+![Redux](https://img.shields.io/badge/Redux_Toolkit-8.1.0-purple)
+![MUI](https://img.shields.io/badge/Material_UI-5.14.0-blue)
 
 ## ✨ Key Features
 
-- **Full CRUD Operations** for blog posts
-- **Comment System** with live fetching
-- **Advanced UI** with Material UI components
-- **State Management** with Redux Toolkit
-- **Responsive Design** for all devices
-- **Modern Routing** with Next.js App Router
+✅ **Full CRUD Operations**  
+✅ **Comment System**  
+✅ **Advanced UI**  
+- Material UI v5 components  
+- Dark/light theme toggle  
+- Responsive design for all devices  
+✅ **State Management**  
+Redux Toolkit for predictable state container  
+✅ **Modern Routing**  
+Next.js App Router for optimized navigation  
 
 ## 🛠 Tech Stack
 
-| Category        | Technologies                          |
-|-----------------|---------------------------------------|
-| Framework       | Next.js 14 (App Router)               |
-| State Management| Redux Toolkit + RTK Query (planned)   |
-| UI Library      | Material UI v5                        |
-| API Client      | Axios                                 |
-| Type System     | TypeScript                            |
+| Category           | Technologies                          |
+|--------------------|---------------------------------------|
+| Framework          | Next.js 14 (App Router)               |
+| State Management   | Redux Toolkit                         |
+| UI Library         | Material UI v5                        |
+| API Client         | Axios                                 |
+| Type System        | TypeScript                            |
 
 ## 🚀 Quick Start
 
@@ -33,15 +36,7 @@ Features include dark/light mode, search functionality, post comments, and a sle
 git clone https://github.com/your-username/doit-posts-app.git
 cd doit-posts-app
 
-Install dependencies:
-npm install
-
-Start development server:
-npm run dev
-
-Open http://localhost:3000 in your browser.
-
-Project Structure
+📁 Project Structure
 doit-posts-app/
 ├── app/
 │ ├── posts/ # Post management routes
@@ -80,7 +75,7 @@ doit-posts-app/
 ├── src/ # Source directory
 
 
-🚀  Development Recommendations
+🔮 Future Improvements
 
 API Optimization
 
