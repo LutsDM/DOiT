@@ -33,10 +33,11 @@ Next.js App Router for optimized navigation
 
 Clone the repository:
 
-git clone https://github.com/your-username/doit-posts-app.git
-cd doit-posts-app
-
+- git clone https://github.com/your-username/doit-posts-app.git
+- cd doit-posts-app
+---
 ## 📁 Project Structure
+```text
 doit-posts-app/
 ├── app/
 │ ├── posts/ # Post management routes
@@ -73,29 +74,29 @@ doit-posts-app/
 │
 ├── public/ # Static assets
 ├── src/ # Source directory
-
-
+```
+---
 ## 🔮 Future Improvements
 
 ✅ API Optimization
 
 Transition to RTK Query for:
-Automatic caching
-Optimized requests
-Less boilerplate code
+- Automatic caching
+- Optimized requests
+- Less boilerplate code
 
 ✅ UX Improvements
 
-Add spinners for all asynchronous actions
-Form validation
-Enhance error handling (e.g., when saving/deleting posts)
+- Add spinners for all asynchronous actions
+- Form validation
+- Enhance error handling (e.g., when saving/deleting posts)
 
 ✅ Unit Testing
 
-Use Jest + React Testing Library
-Test Redux slices and UI components (e.g., PostCard, Header)
+- Use Jest + React Testing Library
+- Test Redux slices and UI components (e.g., PostCard, Header)
 
 ✅ Responsiveness / Mobile Support
 
-Ensure compatibility with different screen sizes
-Optimize UI for mobile devices
+- Ensure compatibility with different screen sizes
+- Optimize UI for mobile devices
