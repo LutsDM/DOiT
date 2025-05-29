@@ -1,7 +1,7 @@
 "use client";
-import  SideDrawer  from "@/app/(main)/components/SideDrawer";
-import  TopAppBar  from "@/app/(main)/components/TopAppBar";
-import  CommentsDialog  from "@/app/(main)/components/CommentsDialog";
+import  SideDrawer  from "@/app/components/SideDrawer";
+import  TopAppBar  from "@/app/components/TopAppBar";
+import  CommentsDialog  from "@/app/components/CommentsDialog";
 import { ReactNode, useEffect, useState } from "react";
 import { useParams, usePathname } from "next/navigation";
 import { useThemeContext } from "@/context/ThemeContext";

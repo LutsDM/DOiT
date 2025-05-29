@@ -15,18 +15,19 @@ import Link from "next/link";
 
 const drawerWidth = 240;
 
-type Props = {
-  open: boolean;
-  onClose: () => void;
-};
-
 const drawerItems = [
   { label: "Головна", href: "/", icon: <HomeIcon /> },
   { label: "Усі пости", href: "/posts", icon: <ListIcon /> },
   { label: "Створити пост", href: "/posts/create", icon: <AddIcon /> },
 ];
 
-export default function SideDrawer({ open, onClose }: Props) {
+export default function SideDrawer({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
   return (
     <Drawer
       variant="temporary"

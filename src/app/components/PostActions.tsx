@@ -9,11 +9,7 @@ import { deletePost } from "@/features/postsState/postsActions";
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 
-type Props = {
-  postId: number;
-};
-
-export default function PostActions({ postId }: Props) {
+export default function PostActions({ postId }: { postId: number }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -46,7 +42,7 @@ export default function PostActions({ postId }: Props) {
           },
         }}
       >
-        ВИДАЛИТИ
+        Видалити
       </Button>
       <Button
         component={Link}
@@ -56,7 +52,7 @@ export default function PostActions({ postId }: Props) {
           border: "1px solid blue",
         }}
       >
-        ДО СПИСКУ
+        Дщ списку
       </Button>
     </Box>
   );

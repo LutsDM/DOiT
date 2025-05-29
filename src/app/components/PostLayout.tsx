@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Post } from "@/types";
-import PostActions from "@/app/(main)/components/PostActions";
+import PostActions from "@/app/components/PostActions";
 
 export default function PostLayout({ id, title, body }: Post) {
   return (

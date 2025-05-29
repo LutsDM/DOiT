@@ -13,19 +13,17 @@ import {
 } from "@mui/material";
 import { Comment } from "@/types";
 
-type Props = {
-  open: boolean;
-  onClose: () => void;
-  comments: Comment[];
-  loading: boolean;
-};
-
 export default function CommentsDialog({
   open,
   onClose,
   comments,
   loading,
-}: Props) {
+}: {
+  open: boolean;
+  onClose: () => void;
+  comments: Comment[];
+  loading: boolean;
+}) {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Коментарі</DialogTitle>
