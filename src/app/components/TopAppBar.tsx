@@ -14,14 +14,6 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import CommentIcon from "@mui/icons-material/Comment";
 
-type Props = {
-  pathname: string;
-  commentsCount: number | null;
-  loadingComments: boolean;
-  onMenuClick: () => void;
-  onCommentsClick: () => void;
-};
-
 function getAppBarTitle(pathname: string): string {
   if (!pathname?.includes("/posts")) return "DOiT MVP";
   if (pathname.includes("/posts/create")) return "Створити пост";

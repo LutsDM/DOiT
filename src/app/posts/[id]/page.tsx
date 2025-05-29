@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { useParams, notFound } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { getPostById } from "@/features/postsState/postsActions";
 import PostLayout from "@/app/components/PostLayout";

@@ -39,7 +39,7 @@ export default function PostsPage() {
   const router = useRouter();
   useEffect(() => {
     dispatch(loadPosts());
-  }, []);
+  }, [dispatch]);
 
   const filteredPosts: Post[] = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase())

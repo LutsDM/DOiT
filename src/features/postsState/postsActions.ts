@@ -1,15 +1,37 @@
 import { INewPost, IUpdatePost } from '@/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+
+type ApiError = {
+  message: string;
+  status?: number;
+  data?: unknown;
+};
+
+const handleApiError = (error: unknown): ApiError => {
+  if (axios.isAxiosError(error)) {
+    return {
+      message: error.response?.data?.message || error.message,
+      status: error.response?.status,
+      data: error.response?.data
+    };
+  }
+  
+  if (error instanceof Error) {
+    return { message: error.message };
+  }
+  
+  return { message: 'Unknown API error' };
+};
 
 export const loadPosts = createAsyncThunk(
   'posts/loadPosts',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get(`https://jsonplaceholder.typicode.com/posts`);
+      const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(handleApiError(error));
     }
   }
 );
@@ -20,8 +42,8 @@ export const getPostById = createAsyncThunk(
     try {
       const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(handleApiError(error));
     }
   }
 );
@@ -30,10 +52,10 @@ export const createPost = createAsyncThunk(
   'posts/createPost',
   async (post: INewPost, thunkAPI) => {
     try {
-      const response = await axios.post(`https://jsonplaceholder.typicode.com/posts`, post);
+      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', post);
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(handleApiError(error));
     }
   }
 );
@@ -45,8 +67,8 @@ export const updatePost = createAsyncThunk(
       const { id, ...data } = post;
       const response = await axios.patch(`https://jsonplaceholder.typicode.com/posts/${id}`, data);
       return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(handleApiError(error));
     }
   }
 );
@@ -55,10 +77,10 @@ export const deletePost = createAsyncThunk(
   'posts/deletePost',
   async (id: number, thunkAPI) => {
     try {
-      const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
-      return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+      return id; // Возвращаем ID удаленного поста
+    } catch (error) {
+      return thunkAPI.rejectWithValue(handleApiError(error));
     }
   }
 );
