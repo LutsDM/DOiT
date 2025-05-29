@@ -42,7 +42,7 @@ export default function Template({ children }: { children: ReactNode }) {
       setCommentsCount(null);
       setCommentsOpen(false);
     }
-  }, [postId, pathname]);
+  }, [postId, pathname, isPostPage]);
 
   return (
     <Box sx={{ display: "flex" }}>
