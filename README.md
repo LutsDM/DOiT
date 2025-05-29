@@ -11,14 +11,9 @@ This project is a test assignment involving the development of a blog platform w
 ✅ **Full CRUD Operations**  
 ✅ **Comment System**  
 ✅ **Advanced UI**  
-- Material UI v5 components  
-- Dark/light theme toggle  
-- Responsive design for all devices  
 ✅ **State Management**  
-Redux Toolkit for predictable state container  
 ✅ **Modern Routing**  
-Next.js App Router for optimized navigation  
-
+  
 ## 🛠 Tech Stack
 
 | Category           | Technologies                          |
